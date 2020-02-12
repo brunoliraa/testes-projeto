@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "AutenticacaoFilter", urlPatterns = "/usuario/*")
-public class AutenticacaoFilter implements Filter {
+@WebFilter(filterName = "AutentificacaoAtivaFilterr", urlPatterns = "/usuario/*")
+public class AutentificacaoAtivaFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -22,13 +22,13 @@ public class AutenticacaoFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpSession session = httpRequest.getSession();
         User login = (User )session.getAttribute("login");
-        if (login == null) {
+        if (login  != null) {
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-            httpResponse.sendRedirect("../index.html");
+            //httpResponse.sendRedirect("/projeto_pw_simulador_war_exploded/Controller?command=LoginCommand");
+            httpRequest.getRequestDispatcher("/Controller?command=LoginCommand").forward(httpRequest, httpResponse);
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
         }
-
     }
 
     @Override

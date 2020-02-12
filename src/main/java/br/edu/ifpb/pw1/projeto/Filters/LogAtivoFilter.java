@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-
-@WebFilter(filterName = "LoginAtivoFilter", urlPatterns = {"/index.html","/CadastroUsuario.html"})
-public class LoginAtivoFilter implements Filter {
+@WebFilter(filterName = "LogAtivoFilter", urlPatterns = "/index.html")
+public class LogAtivoFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -19,19 +18,16 @@ public class LoginAtivoFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
         HttpServletRequest httpRequest = (HttpServletRequest)servletRequest;
         HttpSession session = httpRequest.getSession();
-        //User usuarioLogado = (User) session.getAttribute("login");
-        String usuarioLogado =(String) session.getAttribute("login");
-        if (usuarioLogado != null) {
+
+        User login = (User )session.getAttribute("login");
+        if (login != null) {
             HttpServletResponse httpResponse = (HttpServletResponse)servletResponse;
             httpResponse.sendRedirect("/usuario/usuario.jsp");
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
         }
-
-
     }
 
     @Override
