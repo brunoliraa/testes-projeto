@@ -16,6 +16,7 @@ import java.util.Optional;
 
 public class LoginCommand implements Command {
     @Override
+
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 
@@ -35,8 +36,7 @@ public class LoginCommand implements Command {
         sessao.setAttribute("login", user);
         sessao.setAttribute("carteira", carteiaUser);
 
-        //Jedis jedis =  new Jedis("127.0.0.1", 6379);
-        //System.out.println(jedis.set("chave",sessao.getAttribute(), SetParams.setParams().ex(30).nx()));
+
 
         request.getRequestDispatcher("/usuario/usuario.jsp").forward(request, response);
 

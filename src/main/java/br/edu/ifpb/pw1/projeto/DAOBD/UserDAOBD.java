@@ -5,10 +5,7 @@ import br.edu.ifpb.pw1.projeto.DAO.UserDAO;
 import br.edu.ifpb.pw1.projeto.model.Carteira;
 import br.edu.ifpb.pw1.projeto.model.User;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;

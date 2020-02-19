@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <user nome="aa" email="teste1@email.com" senha="123456" nascimento="01/01/2001"/>
+    <user nome="bb" email="teste2@email.com" senha="123456" nascimento="01/01/2001"/>
+    <user nome="cc" email="teste3@email.com" senha="123456" nascimento="01/01/2001"/>
+    <user nome="dd" email="teste4@email.com" senha="123456" nascimento="01/01/2001"/>
+
+</dataset>

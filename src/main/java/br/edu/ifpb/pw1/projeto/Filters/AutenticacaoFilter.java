@@ -21,7 +21,12 @@ public class AutenticacaoFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpSession session = httpRequest.getSession();
-        User login = (User )session.getAttribute("login");
+
+
+
+        User login = (User) session.getAttribute("login");
+
+
         if (login == null) {
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
             httpResponse.sendRedirect("../index.html");

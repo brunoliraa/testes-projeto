@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "LogAtivoFilter", urlPatterns = "/index.html")
+@WebFilter(filterName = "LogAtivoFilter", urlPatterns = "")
 public class LogAtivoFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -21,13 +21,19 @@ public class LogAtivoFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest)servletRequest;
         HttpSession session = httpRequest.getSession();
 
+
         User login = (User )session.getAttribute("login");
         if (login != null) {
+        User usuarioLogado = (User) session.getAttribute("login");
+        if (usuarioLogado != null) {
+
             HttpServletResponse httpResponse = (HttpServletResponse)servletResponse;
-            httpResponse.sendRedirect("/usuario/usuario.jsp");
+            httpRequest.getRequestDispatcher("./usuario/usuario.jsp").forward(httpRequest,httpResponse);
         } else {
             filterChain.doFilter(servletRequest, servletResponse);
         }
+    }
+
     }
 
     @Override
