@@ -46,7 +46,7 @@
                                         <!--<label>Quantidade maxima: ${(sessionScope.login.carteira.valorCaixa)/(ativo.price)}</label> -->
                                         <input id="idAtivo" name="idAtivo" value="${ativo.symbol}">
                                         <input id="quantidade" name="quantidade" type="number" placeholder="${(sessionScope.login.carteira.valorCaixa)/(ativo.price)}">
-                                        <button class="btn-floating waves-effect" style="float: right"><i class="material-icons left">attach_money</i></button>
+                                        <button class="btn-floating waves-effect" id="button-comprar" style="float: right"><i class="material-icons left">attach_money</i></button>
                                     </form>
                                 </td>
                             </tr>

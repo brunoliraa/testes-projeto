@@ -50,7 +50,7 @@
 
                 </table>
                 <div style="margin: 5%">
-                    <a class="btn-flat modal-trigger" href="#editar"><i class="material-icons">edit</i>Editar Dados</a>
+                    <a class="btn-flat modal-trigger" id="button-editardados" href="#editar"><i class="material-icons">edit</i>Editar Dados</a>
                     <a style="float: right"><form action="Controller?command=ReiniciarSaldoCommand" method="post">
                         <button class="btn-flat" type="action" name="action">
                             <i class="material-icons" href="">refresh</i>
@@ -69,8 +69,8 @@
                                 <div class="row">
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix">person</i>
-                                        <input id="nome" name="nome" type="text" class="validate" pattern="[a-z A-Z]+" title="Apenas letras" value="${sessionScope.login.nome}">
-                                        <label for="nome">Nome</label>
+                                        <input id="editar-nome" name="nome" type="text" class="validate" pattern="[a-z A-Z]+" title="Apenas letras" value="${sessionScope.login.nome}">
+                                        <label for="editar-nome">Nome</label>
                                     </div>
                                     <div class="input-field col s6">
                                         <i class="material-icons prefix">email</i>
@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                                 <div style="float:right">
-                                    <button class="btn waves-effect waves-light green darken-3" type="action" name="action">Salvar
+                                    <button class="btn waves-effect waves-light green darken-3" id="button-salvaredit" type="action" name="action">Salvar
                                         <i class="material-icons right">send</i>
                                     </button>
 

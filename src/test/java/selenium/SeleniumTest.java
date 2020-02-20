@@ -46,16 +46,11 @@ public class SeleniumTest {
     @Test
     public void testaLogin() throws InterruptedException {
 
-        // Entrar na página de login
         WebElement element ;
-        //element.click();
 
         assertEquals("http://localhost:8080/projeto_pw_simulador_war_exploded/", webDriver.getCurrentUrl());
 
-        // Preencher o formulário e clicar no botão de login
-       // Thread.sleep(10000L);
-
-        Thread.sleep(5000L);
+        Thread.sleep(2000L);
         element = webDriver.findElement(By.id("email"));
         element.sendKeys("user@email.com");
         element = webDriver.findElement(By.id("password"));
@@ -65,28 +60,148 @@ public class SeleniumTest {
         Thread.sleep(2000L);
         element.click();
 
-//        Thread.sleep(5000L);
-//        element = webDriver.findElement(By.xpath("/html/body/div/div/div/div[2]/form/div[1]/div/input"));
-//        element.sendKeys("user@email.com");
-//        element = webDriver.findElement(By.xpath("/html/body/div/div/div/div[2]/form/div[2]/div/input"));
-//        element.sendKeys("123456");
-//
-//        element = webDriver.findElement(By.id("button-login"));
-//        Thread.sleep(2000L);
-//        element.click();
+    }
 
-//
-//        Thread.sleep(5000L);
-//        element = webDriver.findElement(By.cssSelector("input[name=email]"));
-//        element.sendKeys("user@email.com");
-//        element = webDriver.findElement(By.cssSelector("input[name=senha]"));
-//        element.sendKeys("123456");
-//
-//        element = webDriver.findElement(By.id("button-login"));
-//        Thread.sleep(2000L);
-//        element.click();
+    @Test
+    public void testeComprarAtivo() throws InterruptedException {
+        WebElement element ;
+        assertEquals("http://localhost:8080/projeto_pw_simulador_war_exploded/", webDriver.getCurrentUrl());
 
+        Thread.sleep(2000L);
+        element = webDriver.findElement(By.id("email"));
+        element.sendKeys("user@email.com");
+        element = webDriver.findElement(By.id("password"));
+        element.sendKeys("123456");
+
+        element = webDriver.findElement(By.id("button-login"));
+        Thread.sleep(2000L);
+        element.click();
+
+        element = webDriver.findElement(By.id("button-ativos"));
+        element.click();
+        Thread.sleep(5000L);
+
+        element = webDriver.findElement(By.id("quantidade"));
+        element.sendKeys("1");
+        element = webDriver.findElement(By.id("button-comprar"));
+        element.click();
+        Thread.sleep(2000L);
 
 
     }
+
+    @Test
+    public void comprarSemSaldo() throws InterruptedException {
+
+        WebElement element ;
+        assertEquals("http://localhost:8080/projeto_pw_simulador_war_exploded/", webDriver.getCurrentUrl());
+
+        Thread.sleep(2000L);
+        element = webDriver.findElement(By.id("email"));
+        element.sendKeys("fishboy@email.com");
+        element = webDriver.findElement(By.id("password"));
+        element.sendKeys("123456");
+
+        element = webDriver.findElement(By.id("button-login"));
+        Thread.sleep(2000L);
+        element.click();
+
+        element = webDriver.findElement(By.id("button-user"));
+        Thread.sleep(2000L);
+        element.click();
+
+        element = webDriver.findElement(By.id("button-carteira"));
+        Thread.sleep(2000L);
+        element.click();
+
+        element = webDriver.findElement(By.id("button-fechar"));
+        Thread.sleep(2000L);
+        element.click();
+        Thread.sleep(4000L);
+
+
+        element = webDriver.findElement(By.id("button-ativos"));
+        element.click();
+        Thread.sleep(5000L);
+
+        element = webDriver.findElement(By.id("quantidade"));
+        element.sendKeys("1");
+        element = webDriver.findElement(By.id("button-comprar"));
+        element.click();
+        Thread.sleep(4000L);
+
+ }
+
+        @Test
+        public void exibirHistorico() throws InterruptedException {
+
+            WebElement element ;
+            assertEquals("http://localhost:8080/projeto_pw_simulador_war_exploded/", webDriver.getCurrentUrl());
+
+            Thread.sleep(2000L);
+            element = webDriver.findElement(By.id("email"));
+            element.sendKeys("user@email.com");
+            element = webDriver.findElement(By.id("password"));
+            element.sendKeys("123456");
+
+            element = webDriver.findElement(By.id("button-login"));
+            Thread.sleep(2000L);
+            element.click();
+
+            element = webDriver.findElement(By.id("button-historico"));
+            Thread.sleep(2000L);
+            element.click();
+            Thread.sleep(5000L);
+
+            element = webDriver.findElement(By.id("button-index"));
+            Thread.sleep(2000L);
+            element.click();
+
+            element = webDriver.findElement(By.id("button-user"));
+            Thread.sleep(2000L);
+            element.click();
+
+            element = webDriver.findElement(By.id("button-logout"));
+            Thread.sleep(3000L);
+            element.click();
+
+        }
+
+            @Test
+            public void editarDados() throws InterruptedException {
+                WebElement element ;
+                assertEquals("http://localhost:8080/projeto_pw_simulador_war_exploded/", webDriver.getCurrentUrl());
+
+                Thread.sleep(2000L);
+                element = webDriver.findElement(By.id("email"));
+                element.sendKeys("user@email.com");
+                element = webDriver.findElement(By.id("password"));
+                element.sendKeys("123456");
+
+                element = webDriver.findElement(By.id("button-login"));
+                Thread.sleep(2000L);
+                element.click();
+
+                element = webDriver.findElement(By.id("button-user"));
+                Thread.sleep(2000L);
+                element.click();
+
+                element = webDriver.findElement(By.id("button-dados"));
+                Thread.sleep(2000L);
+                element.click();
+
+                element = webDriver.findElement(By.id("button-editardados"));
+                Thread.sleep(2000L);
+                element.click();
+
+                element = webDriver.findElement(By.id("editar-nome"));
+                element.clear();
+                element.sendKeys("yasuo maestria sete fon");
+
+                element = webDriver.findElement(By.id("button-salvaredit"));
+                Thread.sleep(3000L);
+                element.click();
+                Thread.sleep(3000L);
+            }
+
 }

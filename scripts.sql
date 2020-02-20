@@ -18,7 +18,7 @@ CREATE TABLE ATIVO (
 CREATE TABLE USUARIO (
 	id serial,
 	nome VARCHAR(100) NOT NULL,
-	email VARCHAR(100) NOT NULL,
+	email VARCHAR(100) NOT NULL UNIQUE,
 	senha VARCHAR (50) NOT NULL,
 	nascimento DATE NOT NULL,
 	idCarteira serial NOT NULL,
