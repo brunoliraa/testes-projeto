@@ -62,6 +62,8 @@ public class TransacaoDAOBD implements TransacaoDAO {
         ResultSet result = statement.executeQuery();
         Transacao transacao = null;
         while (result.next()) {
+            Ativo ativo = new Ativo();
+            User user = new User();
             transacao = new Transacao();
             transacao.setId(result.getLong("id"));
             transacao.getAtivo().setId(result.getLong("idAtivo"));

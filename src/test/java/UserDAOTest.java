@@ -16,6 +16,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import javax.servlet.ServletException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -48,10 +49,12 @@ public class UserDAOTest {
     public void CadastrarUserValido() throws Exception {
         userDAO = new UserDAOBD();
         User user = new User();
-        user.setNome("user");
-        user.setEmail("user@email.com");
+        user.setNome("user3");
+        user.setEmail("user3@email.com");
         user.setSenha("123456");
-        user.setId((long) 3);
+        Long id = new Long(userDAO.buscarTodos().size());
+        user.setId(id);
+
         CarteiraDAO carteiraDAO = DaoFactory.criarCarteiraDAO();
         Carteira carteira = carteiraDAO.cadastrarCarteira();
         user.setCarteira(carteira);
@@ -70,7 +73,8 @@ public class UserDAOTest {
         user.setNome("user2");
         user.setEmail("user@email.com");
         user.setSenha("123456");
-        user.setId((long) 3);
+        Long id = new Long(userDAO.buscarTodos().size());
+        user.setId(id);
         CarteiraDAO carteiraDAO = DaoFactory.criarCarteiraDAO();
         Carteira carteira = carteiraDAO.cadastrarCarteira();
         user.setCarteira(carteira);
@@ -90,7 +94,8 @@ public class UserDAOTest {
         user.setNome("user2");
         user.setEmail("user@email.com");
         user.setSenha("123456");
-        user.setId((long) 3);
+        Long id = new Long(userDAO.buscarTodos().size());
+        user.setId(id);
         CarteiraDAO carteiraDAO = DaoFactory.criarCarteiraDAO();
         Carteira carteira = carteiraDAO.cadastrarCarteira();
         user.setCarteira(carteira);
@@ -111,7 +116,8 @@ public class UserDAOTest {
         user.setNome("user2");
         user.setEmail("user@email.com");
         user.setSenha("123456");
-        user.setId((long) 3);
+        Long id = new Long(userDAO.buscarTodos().size());
+        user.setId(id);
         CarteiraDAO carteiraDAO = DaoFactory.criarCarteiraDAO();
         Carteira carteira = carteiraDAO.cadastrarCarteira();
         user.setCarteira(carteira);
@@ -169,25 +175,26 @@ public class UserDAOTest {
         ConexaoJsonApi conexaoJsonApi = new ConexaoJsonApi();
         ativosJson= conexaoJsonApi.buscarAtivos();
         User user = new User();
-        user.setNome("user2");
-        user.setEmail("user@email.com");
+        user.setNome("fishboy");
+        user.setEmail("fishboy@email.com");
         user.setSenha("123456");
-        user.setId((long) 3);
+        user.setId((long) 2);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate date = LocalDate.parse("01/01/2001", formatter);
         user.setNascimento(date);
 
-        String idAtivo = "ABEV3.SA";
+        String idAtivo = "BBAS3.SA";
         BigDecimal quantidade = new BigDecimal(1);
 
         Carteira carteira = new Carteira();
         BigDecimal valor = new BigDecimal(1000);
         carteira.setValorCaixa(valor);
-        carteira.setId((long) 10);
+        carteira.setId((long) 2);
         user.setCarteira(carteira);
 
         AtivoJson ativoJson = conexaoJsonApi.buscarAtivoJson(ativosJson,idAtivo).orElseThrow(() -> new ServletException());
         Ativo ativo = new Ativo();
+
 
         ativo.setPrecoDeCompra(ativoJson.getPrice());
         ativo.setNome(ativoJson.getNameAtivo());
@@ -203,18 +210,90 @@ public class UserDAOTest {
         carteiraDAO.atualizarSaldo(carteira);
         user.setCarteira(carteira);
 
+
         Transacao transacao = new Transacao();
         transacao.setValor(ativo.getPrecoDeCompra().multiply(ativo.getQuantidade()));
         transacao.setAtivo(ativo);
         transacao.setUser(user);
-        transacao.setId((long) 23);
+        Long id = ativo.getId();
+        transacao.setId(id);
         LocalDate localDate = LocalDate.now();
         transacao.setData(localDate);
+
 
         TransacaoDAO transacaoDAO = DaoFactory.criarTransacaoDAO();
         transacaoDAO.cadastrarTransacao(transacao);
 
-        Assert.assertFalse(transacaoDAO.buscarTransacao(transacao.getId()).isPresent());
+        //Thread.currentThread().sleep(4000);
+
+        //Assert.assertTrue(transacaoDAO.buscarTransacao(transacao.getId()).isPresent());
+        Assert.assertTrue(transacaoDAO.buscarTodos(user.getId()).stream().filter(Transacao ->transacao.getId().equals(id)).findFirst().isPresent());
+
+
+    }
+
+
+
+
+
+    @Test
+    public void comprarComSaldoInsuficiente() throws Exception {
+        List<AtivoJson> ativosJson = new ArrayList<>();
+        ConexaoJsonApi conexaoJsonApi = new ConexaoJsonApi();
+        ativosJson= conexaoJsonApi.buscarAtivos();
+        User user = new User();
+        user.setNome("user");
+        user.setEmail("user@email.com");
+        user.setSenha("123456");
+        user.setId((long) 1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date = LocalDate.parse("01/01/2001", formatter);
+        user.setNascimento(date);
+
+        String idAtivo = "BBAS3.SA";
+        BigDecimal quantidade = new BigDecimal(1);
+
+        Carteira carteira = new Carteira();
+        BigDecimal valor = new BigDecimal(0);
+        carteira.setValorCaixa(valor);
+        carteira.setId((long) 1);
+        user.setCarteira(carteira);
+
+        AtivoJson ativoJson = conexaoJsonApi.buscarAtivoJson(ativosJson,idAtivo).orElseThrow(() -> new ServletException());
+        Ativo ativo = new Ativo();
+
+
+        ativo.setPrecoDeCompra(ativoJson.getPrice());
+        ativo.setNome(ativoJson.getNameAtivo());
+        ativo.setQuantidade(quantidade);
+        ativo.setDisponibilidade(Disponibilidade.DISPONIVEL);
+
+
+
+        AtivoDAO ativoDAO= DaoFactory.criarAtivoDAO();
+        ativo = ativoDAO.CadastrarAtivo(ativo,carteira.getId());
+
+        CarteiraDAO carteiraDAO = DaoFactory.criarCarteiraDAO();
+        carteiraDAO.atualizarSaldo(carteira);
+        user.setCarteira(carteira);
+
+
+        Transacao transacao = new Transacao();
+        transacao.setValor(ativo.getPrecoDeCompra().multiply(ativo.getQuantidade()));
+        transacao.setAtivo(ativo);
+        transacao.setUser(user);
+        Long id = ativo.getId();
+        transacao.setId(id);
+        LocalDate localDate = LocalDate.now();
+        transacao.setData(localDate);
+
+
+        TransacaoDAO transacaoDAO = DaoFactory.criarTransacaoDAO();
+        transacaoDAO.cadastrarTransacao(transacao);
+
+        //vai falhar pq ta comprando com saldo insuficiente
+        Assert.assertFalse(transacaoDAO.buscarTodos(user.getId()).stream().filter(Transacao ->transacao.getId().equals(id)).findFirst().isPresent());
+
 
     }
 
