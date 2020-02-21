@@ -60,6 +60,14 @@ public class SeleniumTest {
         Thread.sleep(2000L);
         element.click();
 
+        element = webDriver.findElement(By.id("button-user"));
+        Thread.sleep(2000L);
+        element.click();
+
+        element = webDriver.findElement(By.id("button-logout"));
+        Thread.sleep(3000L);
+        element.click();
+
     }
 
     @Test
@@ -69,7 +77,7 @@ public class SeleniumTest {
 
         Thread.sleep(2000L);
         element = webDriver.findElement(By.id("email"));
-        element.sendKeys("user@email.com");
+        element.sendKeys("user3@email.com");
         element = webDriver.findElement(By.id("password"));
         element.sendKeys("123456");
 
@@ -98,7 +106,7 @@ public class SeleniumTest {
 
         Thread.sleep(2000L);
         element = webDriver.findElement(By.id("email"));
-        element.sendKeys("fishboy@email.com");
+        element.sendKeys("user@email.com");
         element = webDriver.findElement(By.id("password"));
         element.sendKeys("123456");
 
@@ -202,6 +210,43 @@ public class SeleniumTest {
                 Thread.sleep(3000L);
                 element.click();
                 Thread.sleep(3000L);
+            }
+
+            @Test
+            public void cadastrarUsuario() throws InterruptedException {
+
+                WebElement element ;
+                assertEquals("http://localhost:8080/projeto_pw_simulador_war_exploded/", webDriver.getCurrentUrl());
+
+                element = webDriver.findElement(By.id("button-cadastrar"));
+                Thread.sleep(2000L);
+                element.click();
+
+                Thread.sleep(2000L);
+                element = webDriver.findElement(By.id("nome"));
+                element.sendKeys("teste");
+                element = webDriver.findElement(By.id("dataNasc"));
+                element.sendKeys("05/05/2005");
+                element = webDriver.findElement(By.id("email"));
+                element.sendKeys("teste2@email.com");
+                element = webDriver.findElement(By.id("senha"));
+                element.sendKeys("123456");
+
+                element = webDriver.findElement(By.id("button-salvar"));
+                Thread.sleep(2000L);
+                element.click();
+                Thread.sleep(2000L);
+
+                element = webDriver.findElement(By.id("email"));
+                element.sendKeys("teste2@email.com");
+                element = webDriver.findElement(By.id("password"));
+                element.sendKeys("123456");
+
+                element = webDriver.findElement(By.id("button-login"));
+                Thread.sleep(2000L);
+                element.click();
+
+
             }
 
 }

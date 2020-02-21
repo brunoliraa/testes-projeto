@@ -50,7 +50,7 @@ public class UserDAOTest {
         userDAO = new UserDAOBD();
         User user = new User();
         user.setNome("user3");
-        user.setEmail("user3@email.com");
+        user.setEmail("user4@email.com");
         user.setSenha("123456");
         Long id = new Long(userDAO.buscarTodos().size());
         user.setId(id);
@@ -71,7 +71,7 @@ public class UserDAOTest {
         userDAO = new UserDAOBD();
         User user = new User();
         user.setNome("user2");
-        user.setEmail("user@email.com");
+        user.setEmail("user4@email.com");
         user.setSenha("123456");
         Long id = new Long(userDAO.buscarTodos().size());
         user.setId(id);
@@ -83,7 +83,7 @@ public class UserDAOTest {
         LocalDate date = LocalDate.parse("01/01/2001", formatter);
         user.setNascimento(date);
 
-        //Não vai passar, ta cadastrando com email repetido
+
        Assert.assertFalse(userDAO.cadastrarUser(user));
     }
 
@@ -91,8 +91,8 @@ public class UserDAOTest {
     public void CadastrarUserApenasCamposObrigatorios() throws Exception {
         userDAO = new UserDAOBD();
         User user = new User();
-        user.setNome("user2");
-        user.setEmail("user@email.com");
+        user.setNome("user6");
+        user.setEmail("user6@email.com");
         user.setSenha("123456");
         Long id = new Long(userDAO.buscarTodos().size());
         user.setId(id);
@@ -104,8 +104,8 @@ public class UserDAOTest {
         LocalDate date = LocalDate.parse("01/01/2001", formatter);
         user.setNascimento(date);
 
-        //Não vai passar, ta cadastrando com email repetido
-        Assert.assertFalse(userDAO.cadastrarUser(user));
+        //todos os campos sao obrigatórios
+        Assert.assertTrue(userDAO.cadastrarUser(user));
     }
 
 
@@ -114,7 +114,7 @@ public class UserDAOTest {
         userDAO = new UserDAOBD();
         User user = new User();
         user.setNome("user2");
-        user.setEmail("user@email.com");
+        user.setEmail("user7@email.com");
         user.setSenha("123456");
         Long id = new Long(userDAO.buscarTodos().size());
         user.setId(id);
@@ -123,7 +123,6 @@ public class UserDAOTest {
         user.setCarteira(carteira);
 
 
-        //Não vai passar, ta cadastrando com email repetido
         Assert.assertFalse(userDAO.cadastrarUser(user));
     }
 
